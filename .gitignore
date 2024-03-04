@@ -131,3 +131,7 @@ dist
 
 # .idea files
 .idea/
+
+# Terraform files
+.terraform/
+.terraform.lock.hcl
