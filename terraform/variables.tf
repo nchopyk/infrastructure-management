@@ -4,11 +4,11 @@ variable "region" {
 }
 
 variable "aws_access_key_id" {
-  type      = string
+  type = string
 }
 
 variable "aws_secret_access_key" {
-  type      = string
+  type = string
 }
 
 variable "key_pair_name" {
