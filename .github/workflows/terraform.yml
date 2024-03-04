@@ -20,17 +20,17 @@ jobs:
         with:
           terraform_version: 0.12.29
 
-      - name: Change Directory
-        run: cd terraform
-
       - name: Terraform Init
         run: terraform init
+        working-directory: ./terraform
 
       - name: Terraform Plan
         run: terraform plan
+        working-directory: ./terraform
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
+        working-directory: ./terraform
         env:
           TF_VAR_aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           TF_VAR_aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
