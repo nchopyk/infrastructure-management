@@ -2,6 +2,15 @@ import config from './config';
 import Fastify from 'fastify';
 import remoteLogger from './fluent-client';
 import { multistream } from 'pino-multi-stream';
+import { Registry, collectDefaultMetrics } from 'prom-client';
+
+const register = new Registry()
+
+register.setDefaultLabels({
+  app: 'example-nodejs-app'
+})
+
+collectDefaultMetrics({ register })
 
 
 const remoteStream = {
@@ -24,6 +33,12 @@ const fastify = Fastify({
 fastify.get('/', async function handler(request, reply) {
 
   return { hello: 'world' };
+});
+
+
+fastify.get('/metrics', async function handler(request, reply) {
+  reply.header('Content-Type', register.contentType)
+  return register.metrics()
 });
 
 async function initHttpGateway(): Promise<void> {
